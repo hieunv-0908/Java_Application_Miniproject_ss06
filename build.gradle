@@ -24,8 +24,55 @@ tasks.withType(JavaCompile) {
 dependencies {
     compileOnly('jakarta.servlet:jakarta.servlet-api:6.1.0')
 
+    // =========================
+    // SPRING MVC (KHÔNG BOOT)
+    // =========================
+    implementation 'org.springframework:spring-webmvc:6.1.6'
+
+    // =========================
+    // THYMELEAF + LAYOUT DIALECT
+    // =========================
+    implementation 'org.thymeleaf:thymeleaf-spring6:3.1.2.RELEASE'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.2.1'
+
+    // =========================
+    // JAKARTA SERVLET (JDK21)
+    // =========================
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+    // =========================
+    // JSTL (nếu bạn dùng JSP)
+    // =========================
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api:3.0.0'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl:3.0.1'
+
+    // =========================
+    // LOG (optional nhưng nên có)
+    // =========================
+    implementation 'org.slf4j:slf4j-api:2.0.13'
+    runtimeOnly 'ch.qos.logback:logback-classic:1.4.14'
+
+    // =========================
+    // VALIDATION (nếu cần form)
+    // =========================
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.2'
+
+    // =========================
+    // TEST
+    // =========================
+    testImplementation 'org.springframework:spring-test:6.1.6'
+
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    // =========================
+    // THÊM BỔ SUNG
+    // =========================
+    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+    implementation 'org.springframework:spring-context:6.1.6'
+    implementation 'org.springframework:spring-beans:6.1.6'
+    implementation 'org.springframework:spring-expression:6.1.6'
+    implementation 'org.glassfish:jakarta.el:4.0.2'
 }
 
 test {
