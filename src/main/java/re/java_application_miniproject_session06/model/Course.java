@@ -33,6 +33,9 @@ public class Course {
         this.startDate = startDate;
     }
 
+    public Course(String s, String businessEnglish, String advanced, double v, String s1, String s2, boolean b, int i) {
+    }
+
     // Getter & Setter
     public String getCode() { return code; }
     public void setCode(String code) { this.code = code; }
