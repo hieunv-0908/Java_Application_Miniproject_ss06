@@ -6,56 +6,63 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import re.java_application_miniproject_session06.model.Course;
 import re.java_application_miniproject_session06.service.impl.CourseServiceImpl;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class CourseController {
 
     @Autowired
-    private static CourseServiceImpl courseServiceImpl;
+    private CourseServiceImpl courseServiceImpl;
 
     // Trang danh sách khoá học, với đường dẫn mặc định /
     @GetMapping("/")
+    public String homeCourses(
+            @RequestParam(name = "level", defaultValue = "") String level,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
+            Model model
+    ){
+        return listCourses(level, maxPrice, model);
+    }
+
+    @GetMapping("/course/list")
     public String listCourses(
-            @RequestParam(defaultValue = "") String level,
-            @RequestParam(defaultValue = "999999999") double price,
+            @RequestParam(name = "level", defaultValue = "") String level,
+            @RequestParam(name = "maxPrice", required = false) Double maxPrice,
             Model model
     ){
         // Mock data
-        List<Course> courses = courseServiceImpl.filterCourses(level, price);
-        model.addAttribute("list",courses);
+        List<Course> courses = courseServiceImpl.filterCourses(level, maxPrice);
+        model.addAttribute("courses",courses);
         model.addAttribute("level",level);
-        model.addAttribute("price",price);
+        model.addAttribute("maxPrice",maxPrice);
 
-        return "coures/list";
+        return "course/course-list";
     }
 
-    @GetMapping("/detail/{code}")
+    @GetMapping("/course/detail/{code}")
     public String detailCourse(
-            @RequestParam(defaultValue = "") String code,
+            @PathVariable(name = "code") String code,
             Model model
     ){
         Course course = courseServiceImpl.getCourseByCode(code);
         model.addAttribute("course", course);
-        return "coures/detail";
+        return "course/course-detail";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/course/edit/{id}")
     public String showUpdateForm(
-            @PathVariable int id,
+            @PathVariable(name = "id") int id,
             Model model
     ) {
-        Course course = courseServiceImpl.getById(id);
+        Course course = courseServiceImpl.findById(id).orElse(null);
         model.addAttribute("course", course);
 
-        return "course/edit";
+        return "layout/course/course-form";
     }
 
     @PostMapping("/update")
     public String updateCourse(
-            @ModelAttribute Course course
+            @ModelAttribute(name = "course") Course course
     ) {
         courseServiceImpl.updateCourse(course);
 
@@ -63,9 +70,9 @@ public class CourseController {
         return "redirect:/course/list";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("course/delete/{id}")
     public String deleteCourse(
-            @PathVariable int id,
+            @PathVariable(name = "id") int id,
             Model model
     ) {
         boolean success = courseServiceImpl.deleteCourse(id);
@@ -75,10 +82,10 @@ public class CourseController {
                     "Không thể hủy khóa học đã có học viên đăng ký");
 
             // load lại danh sách
-            List<Course> courses = courseServiceImpl.getAll();
+            List<Course> courses = courseServiceImpl.findAll();
             model.addAttribute("courses", courses);
 
-            return "course/list";
+            return "course/course-list";
         }
 
         return "redirect:/course/list";

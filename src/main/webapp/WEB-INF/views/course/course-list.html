@@ -2,7 +2,7 @@
 <html lang="vi"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/main-layout}">
+      layout:decorate="~{layout/course/main-layout}">
 <head>
     <meta charset="UTF-8">
     <title>Danh sách khóa học</title>
@@ -346,9 +346,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="maxFee">Học phí tối đa</label>
-                    <input id="maxFee" type="number" name="maxFee" min="0"
-                           th:value="${maxFee}"
+                    <label for="maxPrice">Học phí tối đa</label>
+                    <input id="maxPrice" type="number" name="maxPrice" min="0"
+                           th:value="${maxPrice != null ? maxPrice : ''}"
                            placeholder="Ví dụ: 5000000">
                 </div>
 
@@ -396,7 +396,7 @@
                             <span th:if="${course.level == 'Intermediate'}" class="badge badge-intermediate" th:text="${course.level}">Intermediate</span>
                             <span th:if="${course.level == 'Advanced'}" class="badge badge-advanced" th:text="${course.level}">Advanced</span>
                         </td>
-                        <td th:text="${#numbers.formatDecimal(course.fee, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">5,000,000 VNĐ</td>
+                        <td th:text="${#numbers.formatDecimal(course.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">5,000,000 VNĐ</td>
                         <td th:text="${course.instructor}">Nguyễn Văn A</td>
                         <td th:text="${course.startDate}">2026-05-10</td>
                         <td>

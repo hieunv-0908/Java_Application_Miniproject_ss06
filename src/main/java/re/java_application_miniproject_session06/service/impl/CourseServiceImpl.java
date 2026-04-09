@@ -52,7 +52,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public  Optional<Course> findById(Integer id) {
+    public Optional<Course> findById (Integer id) {
         if (id == null) {
             return Optional.empty();
         }
@@ -73,29 +73,33 @@ public class CourseServiceImpl implements CourseService {
             return false;
         }
 
-        Course oldCourse = courseRepository.findById(updatedCourse.getId());
-        if (oldCourse == null) {
+        Optional<Course> CheckOldCourse = courseRepository.findById(updatedCourse.getId());
+        if (CheckOldCourse.isEmpty()) {
             return false;
         }
 
-        if (updatedCourse.getFee() < 0) {
+        Course oldCourse = CheckOldCourse.get();
+
+        if (updatedCourse.getPrice() < 0) {
             return false;
         }
 
-        oldCourse.setFee(updatedCourse.getFee());
+        oldCourse.setPrice(updatedCourse.getPrice());
         oldCourse.setStartDate(updatedCourse.getStartDate());
 
-        courseRepository.update(oldCourse);
-        return true;
+        Optional<Course> updated = courseRepository.update(oldCourse);
+        return updated.isPresent();
     }
 
     @Override
     public boolean deleteCourse(Integer id) {
-        Course course = courseRepository.findById(id);
+        Optional<Course> checkCourse = courseRepository.findById(id);
 
-        if (course == null) {
+        if (checkCourse == null) {
             return false;
         }
+
+        Course course = checkCourse.get();
 
         if (course.getStudentCount() > 0) {
             return false;
@@ -107,11 +111,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public String getDeleteMessage(Integer id) {
-        Course course = courseRepository.findById(id);
+        Optional<Course> checkCourse = courseRepository.findById(id);
 
-        if (course == null) {
+        if (checkCourse.isEmpty()) {
             return "Khóa học không tồn tại";
         }
+
+        Course course = checkCourse.get();
 
         if (course.getStudentCount() > 0) {
             return "Không thể hủy khóa học đã có học viên đăng ký";
@@ -122,6 +128,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course getCourseByCode(String code) {
-        return courseRepository.findByCode(code);
+        Optional<Course> courseOpt = courseRepository.findByCode(code);
+        return courseOpt.orElse(null);
     }
 }

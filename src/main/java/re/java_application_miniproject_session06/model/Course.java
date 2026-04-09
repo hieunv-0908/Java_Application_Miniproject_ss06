@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Course {
 
+    private Integer id;
     private String code;          // IELTS-6.5
     private String name;          // Tên khóa
     private String level;         // Beginner, Intermediate, Advanced
@@ -18,9 +19,14 @@ public class Course {
     // Constructor
     public Course() {}
 
-    public Course(String code, String name, String level, double price,
+    public Integer getId() {
+        return id;
+    }
+
+    public Course(Integer id, String code, String name, String level, double price,
                   String description, String instructor, int duration,
                   boolean isFull, int studentCount, LocalDate startDate) {
+        this.id = id;
         this.code = code;
         this.name = name;
         this.level = level;

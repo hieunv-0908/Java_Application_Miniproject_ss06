@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/main-layout}"> <head>
+      layout:decorate="~{layout/course/main-layout}"> <head>
     <title>Cập nhật khóa học - EDU-PATH</title>
 </head>
 <body>
@@ -14,19 +14,19 @@
 
         <div style="margin-bottom: 15px;">
             <label>Mã khóa học:</label>
-            <input type="text" th:field="*{courseCode}" readonly
+            <input type="text" th:field="*{code}" readonly
                    style="background: #eee; cursor: not-allowed; border: 1px solid #ccc; width: 100%; padding: 8px; border-radius: 4px;">
         </div>
 
         <div style="margin-bottom: 15px;">
             <label>Tên khóa học:</label>
-            <input type="text" th:field="*{courseName}" readonly
+            <input type="text" th:field="*{name}" readonly
                    style="background: #eee; cursor: not-allowed; border: 1px solid #ccc; width: 100%; padding: 8px; border-radius: 4px;">
         </div>
 
         <div style="margin-bottom: 15px;">
             <label style="display: block; font-weight: bold;">Học phí (VNĐ):</label>
-            <input type="number" th:field="*{tuitionFee}" required
+            <input type="number" th:field="*{price}" required
                    style="width: 100%; padding: 10px; border: 1px solid #2c3e50; border-radius: 4px;">
         </div>
 
