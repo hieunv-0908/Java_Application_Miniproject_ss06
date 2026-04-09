@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>EDU-PATH | Main Layout</title>
+    <link rel="stylesheet" th:href="@{/resources/css/style.css}">
+    <style>
+        body { font-family: sans-serif; margin: 0; background: #f4f4f4; }
+        .header { background: #1a2a6c; color: white; text-align: center; padding: 1rem; }
+        .nav { background: #333; padding: 10px; text-align: center; }
+        .nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        .container { padding: 20px; background: white; min-height: 500px; width: 80%; margin: 20px auto; border-radius: 8px; }
+        .footer { text-align: center; padding: 10px; background: #ddd; }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>EDU-PATH</h1>
+    <p>Lộ trình tối ưu - Tương lai dẫn đầu</p>
+</header>
+
+<nav class="nav">
+    <a th:href="@{/course/list}">Danh sách khóa học</a>
+    <a href="#">Đăng ký tư vấn</a>
+</nav>
+
+<div class="container">
+    <div layout:fragment="content"></div>
+</div>
+
+<footer class="footer">
+    <p>&copy; 2026 EDU-PATH Center - Student Project</p>
+</footer>
+
+</body>
+</html>
