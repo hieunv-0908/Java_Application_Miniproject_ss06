@@ -64,6 +64,15 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+
+    // =========================
+    // THÊM BỔ SUNG
+    // =========================
+    implementation 'org.thymeleaf:thymeleaf:3.1.2.RELEASE'
+    implementation 'org.springframework:spring-context:6.1.6'
+    implementation 'org.springframework:spring-beans:6.1.6'
+    implementation 'org.springframework:spring-expression:6.1.6'
+    implementation 'org.glassfish:jakarta.el:4.0.2'
 }
 
 test {
