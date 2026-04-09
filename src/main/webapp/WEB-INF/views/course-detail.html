@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main-layout">
+
+<body>
+
+<div layout:fragment="content">
+
+    <h2>Chi tiết khóa học</h2>
+
+    <p><b>Tên khóa:</b> <span th:text="${course.name}"></span></p>
+
+    <p><b>Mã khóa:</b> <span th:text="${course.code}"></span></p>
+
+    <p><b>Trình độ:</b> <span th:text="${course.level}"></span></p>
+
+    <p><b>Học phí:</b>
+        <span th:text="${#numbers.formatDecimal(course.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'"></span>
+    </p>
+
+    <p><b>Giảng viên:</b> <span th:text="${course.instructor}"></span></p>
+
+    <p><b>Thời lượng:</b> <span th:text="${course.duration}"></span> buổi</p>
+
+    <p><b>Lộ trình học:</b></p>
+    <p th:text="${course.description}"></p>
+
+    <!-- HẾT CHỖ -->
+    <p th:if="${course.full}" style="color:red; font-weight:bold;">
+        HẾT CHỖ
+    </p>
+
+</div>
+
+</body>
+</html>
