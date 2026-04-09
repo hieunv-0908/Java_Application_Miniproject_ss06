@@ -7,6 +7,7 @@ import re.java_application_miniproject_session06.service.CourseService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -22,25 +23,27 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAll();
     }
 
+
+
     @Override
-    public List<Course> filterCourses(String level, Double maxFee) {
+    public List<Course> filterCourses(String level, Double maxPrice) {
         List<Course> allCourses = courseRepository.findAll();
         List<Course> result = new ArrayList<>();
 
         for (Course course : allCourses) {
             boolean matchLevel = true;
-            boolean matchFee = true;
+            boolean matchPrice = true;
 
             if (level != null && !level.trim().isEmpty()) {
                 matchLevel = course.getLevel() != null
                         && course.getLevel().equalsIgnoreCase(level.trim());
             }
 
-            if (maxFee != null && maxFee > 0) {
-                matchFee = course.getFee() <= maxFee;
+            if (maxPrice != null && maxPrice > 0) {
+                matchPrice = course.getPrice() <= maxPrice;
             }
 
-            if (matchLevel && matchFee) {
+            if (matchLevel && matchPrice) {
                 result.add(course);
             }
         }
@@ -49,17 +52,17 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public Course findById(Integer id) {
+    public  Optional<Course> findById(Integer id) {
         if (id == null) {
-            return null;
+            return Optional.empty();
         }
         return courseRepository.findById(id);
     }
 
     @Override
-    public Course findByCode(String code) {
+    public Optional<Course> findByCode(String code) {
         if (code == null || code.trim().isEmpty()) {
-            return null;
+            return Optional.empty();
         }
         return courseRepository.findByCode(code.trim());
     }
@@ -115,5 +118,10 @@ public class CourseServiceImpl implements CourseService {
         }
 
         return "Hủy khóa học thành công";
+    }
+
+    @Override
+    public Course getCourseByCode(String code) {
+        return courseRepository.findByCode(code);
     }
 }

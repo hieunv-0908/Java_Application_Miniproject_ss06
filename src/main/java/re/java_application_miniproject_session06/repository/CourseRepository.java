@@ -1,7 +1,7 @@
 package re.java_application_miniproject_session06.repository;
 
-import com.edupath.model.Course;
 import org.springframework.stereotype.Repository;
+import re.java_application_miniproject_session06.model.Course;
 
 import java.util.ArrayList;
 import java.util.List;

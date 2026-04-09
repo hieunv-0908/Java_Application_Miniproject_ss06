@@ -1,4 +1,4 @@
-package com.edupath.model;
+package re.java_application_miniproject_session06.model;
 
 import java.time.LocalDate;
 
